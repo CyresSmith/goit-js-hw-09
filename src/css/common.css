@@ -16,3 +16,78 @@ img {
   display: block;
   max-width: 100%;
 }
+
+.timerBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input {
+  display: flex;
+}
+
+.timer {
+  display: flex;
+  font-family: 'Rubik';
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px 5px;
+}
+
+.value {
+  font-weight: 300;
+  font-size: 65px;
+}
+
+.label {
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+.dots {
+  font-weight: 300;
+  font-size: 55px;
+  position: relative;
+  bottom: 2;
+}
+
+input[type='text'] {
+  font-family: 'Rubik';
+  font-weight: 400;
+  font-size: 15px;
+  padding: 10px;
+  width: 245px;
+  border: 0;
+  border-radius: 20px;
+  background-color: lightgray;
+}
+
+.button {
+  font-family: 'Rubik';
+  font-weight: 600;
+  font-size: 15px;
+  padding: 10px;
+  margin-left: 5px;
+  width: 70px;
+  border: 0;
+  border-radius: 20px;
+  background-color: salmon;
+  transition-duration: 250ms;
+  transition-property: all;
+  transition-timing-function: ease-in-out;
+  color: #212121;
+}
+
+.button:hover {
+  background-color: rgb(255, 76, 56);
+}
+
+.button:disabled {
+  background-color: rgb(253, 172, 163);
+}
