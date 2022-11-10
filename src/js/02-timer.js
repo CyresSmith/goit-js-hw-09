@@ -3,6 +3,7 @@ import { Report } from 'notiflix/build/notiflix-report-aio';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const refs = {
+    datetimePicker: document.querySelector('[id="datetime-picker"]'),
     startBtn: document.querySelector('[data-start]'),
     resetBtn: document.querySelector('[data-reset]'),
     days: document.querySelector('[data-days]'),
@@ -22,36 +23,51 @@ const options = {
     altFormat: "H:i, F j, Y",
     dateFormat: "Y-m-d",
 
+    onOpen() {
+
+        if (refs.days.textContent !== '00' ||
+            refs.hours.textContent !== '00' ||
+            refs.minutes.textContent !== '00' ||
+            refs.seconds.textContent !== '00') {
+            
+            Notify.warning('Сountdown in works, reset it before change the date');
+    }
+
+    },
+
     onClose(selectedDates) {
-      setData(selectedDates[0]);      
-      refs.startBtn.disabled = false;
-      refs.resetBtn.disabled = false;
+        
+        setData(selectedDates[0]);        
     },
 };
 
-flatpickr('input#datetime-picker', options); 
-
+let intervalID = 0;
 let selectedDate;
+
+flatpickr('input#datetime-picker', options);
 
 const setData = (date) => {
 
-    switch (date > new Date) {
-
-        case true:
-            selectedDate = date;
-            renderСountdownTime(selectedDate);
-            Notify.info('Ready to count');
-            break;
+        switch (date > new Date) {
+            
+            case true:            
+                selectedDate = date;            
+                renderСountdownTime(selectedDate);           
+                Notify.info('Ready to count');                
+                refs.startBtn.disabled = false;
+                refs.resetBtn.disabled = false;
+                break;        
         
-        case false:
-            Report.warning
-            ('Please choose a date in the future',
-            'We don\'t have to bring back yesterday, but what happens tomorrow is up to us.', 'Okay', reset);
-            break;
-        
-        default:
-            break;
-    }   
+            case false:            
+                Report.warning            
+                    ('Please choose a date in the future',            
+                        'We don\'t have to bring back yesterday, but what happens tomorrow is up to us.', 'Okay', reset);            
+                break;
+            
+            default:            
+                break;
+        }
+          
 }
 
 const addLeadingZero = (value) => {
@@ -102,9 +118,6 @@ const renderСountdownTime = () => {
     refs.minutes.textContent = addLeadingZero(minutes);
     refs.seconds.textContent = addLeadingZero(seconds);
 }
-
-
-let intervalID;
 
 const toggleСountdown = (e) => {    
 

@@ -89,5 +89,6 @@ input[type='text'] {
 }
 
 .button:disabled {
+  color: #868686;
   background-color: rgb(253, 172, 163);
 }
