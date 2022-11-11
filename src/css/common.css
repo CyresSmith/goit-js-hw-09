@@ -84,6 +84,18 @@ input[type='text'] {
   color: #212121;
 }
 
+.button.start {
+  background-color: rgb(98, 236, 98);
+}
+
+.button.start:hover {
+  background-color: rgb(73, 224, 73);
+}
+
+.button.start:disabled {
+  background-color: lightgreen;
+}
+
 .button:hover {
   background-color: rgb(255, 76, 56);
 }

@@ -1,9 +1,11 @@
 import flatpickr from "flatpickr";
+import 'flatpickr/dist/flatpickr.min.css';
 import { Report } from 'notiflix/build/notiflix-report-aio';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const refs = {
-    datetimePicker: document.querySelector('[id="datetime-picker"]'),
+    datetimePicker: document.querySelector('#datetime-picker'),
+    altInput: document.querySelector('.altInput'),
     startBtn: document.querySelector('[data-start]'),
     resetBtn: document.querySelector('[data-reset]'),
     days: document.querySelector('[data-days]'),
@@ -19,44 +21,31 @@ const options = {
     defaultDate: new Date(),
     minuteIncrement: 1,
     // minDate: 'today',
-    altInput: true,
-    altFormat: "H:i, F j, Y",
-    dateFormat: "Y-m-d",
+    // altInput: true,
+    // altFormat: "H:i, F j, Y",
+    dateFormat: "H:i D d F Y",
 
-    onOpen() {
-
-        if (refs.days.textContent !== '00' ||
-            refs.hours.textContent !== '00' ||
-            refs.minutes.textContent !== '00' ||
-            refs.seconds.textContent !== '00') {
-            
-            Notify.warning('Сountdown in works, reset it before change the date');
-    }
-
-    },
-
-    onClose(selectedDates) {
-        
-        setData(selectedDates[0]);        
+    onClose(selectedDates) {        
+        setData(selectedDates[0]);
     },
 };
 
 let intervalID = 0;
 let selectedDate;
 
-flatpickr('input#datetime-picker', options);
+
+flatpickr(refs.datetimePicker, options);
 
 const setData = (date) => {
-
-        switch (date > new Date) {
-            
+        switch (date > new Date) {            
             case true:            
-                selectedDate = date;            
-                renderСountdownTime(selectedDate);           
-                Notify.info('Ready to count');                
+                selectedDate = date;
+                renderСountdownTime(selectedDate);                
+                Notify.info('Ready to count');
+                refs.datetimePicker.disabled = true;
                 refs.startBtn.disabled = false;
                 refs.resetBtn.disabled = false;
-                break;        
+                break;
         
             case false:            
                 Report.warning            
@@ -100,6 +89,7 @@ function convertMs(ms) {
 
 const reset = () => {
 
+    refs.datetimePicker.disabled = false;
     refs.startBtn.disabled = true;
     refs.resetBtn.disabled = true;
 
@@ -109,28 +99,40 @@ const reset = () => {
     refs.seconds.textContent = '00';
 }
 
-const renderСountdownTime = () => {
+const renderСountdownTime = () => {    
 
     const { days, hours, minutes, seconds } = convertMs(selectedDate - new Date);
 
     refs.days.textContent = addLeadingZero(days);
     refs.hours.textContent = addLeadingZero(hours);
     refs.minutes.textContent = addLeadingZero(minutes);
-    refs.seconds.textContent = addLeadingZero(seconds);
+    refs.seconds.textContent = addLeadingZero(seconds);    
 }
 
-const toggleСountdown = (e) => {    
+const toggleСountdown = (e) => {
 
-    if (e.target === refs.startBtn) {        
-        intervalID = setInterval(renderСountdownTime, 1000);
-        refs.startBtn.disabled = true;
-        refs.resetBtn.disabled = false;
-        Notify.success('Started');
+    switch (e.target) {
 
-    } else if (e.target === refs.resetBtn){
-        clearInterval(intervalID);
-        reset();
-        Notify.warning('Сountdown reset');
+        case refs.startBtn:
+            intervalID = setInterval(renderСountdownTime, 1000);
+            refs.startBtn.disabled = true;
+            Notify.success('Сountdown started');
+            break;
+        
+        case refs.resetBtn:
+            clearInterval(intervalID);
+            reset();
+            Notify.warning('Time is reset');
+            break;
+        
+        case refs.datetimePicker:
+            if (refs.datetimePicker.disabled) {
+                Notify.warning('The time is set, please reset it before choosing a new date!');            
+            }
+            break;
+        
+        default:
+            break;
     }
 };
 
