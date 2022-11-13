@@ -57,7 +57,8 @@ img {
   bottom: 2;
 }
 
-input[type='text'] {
+input[type='text'],
+input[type='number'] {
   font-family: 'Rubik';
   font-weight: 400;
   font-size: 15px;
@@ -68,13 +69,16 @@ input[type='text'] {
   background-color: lightgray;
 }
 
+input[type='number'] {
+  width: 100px;
+}
+
 .button {
   font-family: 'Rubik';
   font-weight: 600;
   font-size: 15px;
   padding: 10px;
   margin-left: 5px;
-  width: 70px;
   border: 0;
   border-radius: 20px;
   background-color: salmon;

@@ -103,10 +103,16 @@ const renderСountdownTime = () => {
 
     const { days, hours, minutes, seconds } = convertMs(selectedDate - new Date);
 
+    if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
+        clearInterval(intervalID);
+        reset();
+        Report.success('Your time has come', 'Time is priceless. Think carefully about what you spend it on.');
+    }
+
     refs.days.textContent = addLeadingZero(days);
     refs.hours.textContent = addLeadingZero(hours);
     refs.minutes.textContent = addLeadingZero(minutes);
-    refs.seconds.textContent = addLeadingZero(seconds);    
+    refs.seconds.textContent = addLeadingZero(seconds);
 }
 
 const toggleСountdown = (e) => {
