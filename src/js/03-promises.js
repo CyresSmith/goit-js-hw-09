@@ -21,7 +21,7 @@ function createPromise(position, delay) {
         resolve(Notify.success(`Fulfilled promise ${position} in ${delay}ms`));
       }
       else {
-        reject(Notify.warning(`Rejected promise ${position} in ${delay}ms`));
+        reject(Notify.failure(`Rejected promise ${position} in ${delay}ms`));
       }
       
     }, delay);

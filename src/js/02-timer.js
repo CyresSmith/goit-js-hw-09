@@ -12,7 +12,7 @@ const refs = {
     hours: document.querySelector('[data-hours]'),
     minutes: document.querySelector('[data-minutes]'),
     seconds: document.querySelector('[data-seconds]'),
-    timerBox: document.querySelector('.timerBox'),
+    timerBox: document.querySelector('.box'),
 }
 
 const options = {
