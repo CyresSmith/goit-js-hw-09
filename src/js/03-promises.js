@@ -39,14 +39,15 @@ function startRenderPromises(e) {
 
   refs.form.reset()
 
-  let PromisesOptionsArray = [{position: 1, delay: delay}];
+  let PromisesOptionsArray = [{PromisePosition: 1, PromiseDelay: delay}];
 
   for (let i = 2; i <= amount; i++) {
-    PromisesOptionsArray.push({position: i, delay: delay += step,})    
+    PromisesOptionsArray.push({PromisePosition: i, PromiseDelay: delay += step,})    
   }
 
   PromisesOptionsArray.forEach(element => {
-    createPromise(element.position, element.delay);
+    const { PromisePosition, PromiseDelay } = element;
+    createPromise(PromisePosition, PromiseDelay);
   });  
 }
 
