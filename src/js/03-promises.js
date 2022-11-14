@@ -1,4 +1,3 @@
-import { Report } from 'notiflix/build/notiflix-report-aio';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const refs = { 
@@ -31,7 +30,8 @@ function createPromise(position, delay) {
 
 let PromisesOptionsArray = [];
 
-function createPromisesOptionsArray() {
+const createPromisesOptionsArray = () => {
+
   let delay = Number(refs.delay.value);
   let step = Number(refs.step.value);
   let amount = Number(refs.amount.value);
@@ -45,7 +45,7 @@ function createPromisesOptionsArray() {
 
 refs.form.addEventListener('input', createPromisesOptionsArray);
 
-function RenderPromises(array) {
+const RenderPromises = (array) => {
   array.forEach(element => {
     const { PromisePosition, PromiseDelay } = element;
     createPromise(PromisePosition, PromiseDelay);
