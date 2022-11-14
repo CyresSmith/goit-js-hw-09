@@ -33,9 +33,9 @@ function startRenderPromises(e) {
 
   event.preventDefault()
 
-  delay = Number(refs.delay.value);
-  step = Number(refs.step.value);
-  amount = Number(refs.amount.value);
+  let delay = Number(refs.delay.value);
+  let step = Number(refs.step.value);
+  let amount = Number(refs.amount.value);
 
   refs.form.reset()
 
