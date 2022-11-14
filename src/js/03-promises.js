@@ -29,26 +29,33 @@ function createPromise(position, delay) {
   }).then().catch(e => e);
 }
 
-function startRenderPromises(e) {
+let PromisesOptionsArray = [];
 
-  event.preventDefault()
-
+function createPromisesOptionsArray() {
   let delay = Number(refs.delay.value);
   let step = Number(refs.step.value);
   let amount = Number(refs.amount.value);
 
-  refs.form.reset()
-
-  let PromisesOptionsArray = [{PromisePosition: 1, PromiseDelay: delay}];
-
+  PromisesOptionsArray = [{ PromisePosition: 1, PromiseDelay: delay }];
+  
   for (let i = 2; i <= amount; i++) {
     PromisesOptionsArray.push({PromisePosition: i, PromiseDelay: delay += step,})    
   }
+}
 
-  PromisesOptionsArray.forEach(element => {
+refs.form.addEventListener('input', createPromisesOptionsArray);
+
+function RenderPromises(array) {
+  array.forEach(element => {
     const { PromisePosition, PromiseDelay } = element;
     createPromise(PromisePosition, PromiseDelay);
   });  
 }
 
-refs.startBtn.addEventListener('click', startRenderPromises);
+const startRender = () => {
+  event.preventDefault()
+  RenderPromises(PromisesOptionsArray)
+  refs.form.reset()
+};
+
+refs.startBtn.addEventListener('click', startRender);
